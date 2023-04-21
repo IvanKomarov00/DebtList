@@ -9,21 +9,29 @@
 /* Begin PBXBuildFile section */
 		17A7323A29F2D04800E2CD1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A7323929F2D04800E2CD1F /* AppDelegate.swift */; };
 		17A7323C29F2D04800E2CD1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A7323B29F2D04800E2CD1F /* SceneDelegate.swift */; };
-		17A7323E29F2D04800E2CD1F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A7323D29F2D04800E2CD1F /* ViewController.swift */; };
 		17A7324129F2D04800E2CD1F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17A7323F29F2D04800E2CD1F /* Main.storyboard */; };
 		17A7324329F2D04900E2CD1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 17A7324229F2D04900E2CD1F /* Assets.xcassets */; };
 		17A7324629F2D04900E2CD1F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17A7324429F2D04900E2CD1F /* LaunchScreen.storyboard */; };
+		17A7325029F2D54400E2CD1F /* Debtor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A7324F29F2D54400E2CD1F /* Debtor.swift */; };
+		17A7325629F2E01500E2CD1F /* Interest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A7325529F2E01500E2CD1F /* Interest.swift */; };
+		17A7325929F2E16500E2CD1F /* HomeScreenTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A7325829F2E16500E2CD1F /* HomeScreenTableViewCell.swift */; };
+		17A7325B29F2E18600E2CD1F /* HomeScreenTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A7325A29F2E18600E2CD1F /* HomeScreenTableViewController.swift */; };
+		17A7325D29F3210800E2CD1F /* AddEditCellTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A7325C29F3210800E2CD1F /* AddEditCellTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		17A7323629F2D04800E2CD1F /* DebtList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DebtList.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17A7323929F2D04800E2CD1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17A7323B29F2D04800E2CD1F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		17A7323D29F2D04800E2CD1F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		17A7324029F2D04800E2CD1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		17A7324229F2D04900E2CD1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		17A7324529F2D04900E2CD1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		17A7324729F2D04900E2CD1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		17A7324F29F2D54400E2CD1F /* Debtor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debtor.swift; sourceTree = "<group>"; };
+		17A7325529F2E01500E2CD1F /* Interest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interest.swift; sourceTree = "<group>"; };
+		17A7325829F2E16500E2CD1F /* HomeScreenTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenTableViewCell.swift; sourceTree = "<group>"; };
+		17A7325A29F2E18600E2CD1F /* HomeScreenTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenTableViewController.swift; sourceTree = "<group>"; };
+		17A7325C29F3210800E2CD1F /* AddEditCellTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddEditCellTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,13 +66,41 @@
 			children = (
 				17A7323929F2D04800E2CD1F /* AppDelegate.swift */,
 				17A7323B29F2D04800E2CD1F /* SceneDelegate.swift */,
-				17A7323D29F2D04800E2CD1F /* ViewController.swift */,
 				17A7323F29F2D04800E2CD1F /* Main.storyboard */,
+				17A7324D29F2D08100E2CD1F /* Modal */,
+				17A7325729F2E0E800E2CD1F /* View */,
+				17A7324E29F2D08800E2CD1F /* Controller */,
 				17A7324229F2D04900E2CD1F /* Assets.xcassets */,
 				17A7324429F2D04900E2CD1F /* LaunchScreen.storyboard */,
 				17A7324729F2D04900E2CD1F /* Info.plist */,
 			);
 			path = DebtList;
+			sourceTree = "<group>";
+		};
+		17A7324D29F2D08100E2CD1F /* Modal */ = {
+			isa = PBXGroup;
+			children = (
+				17A7324F29F2D54400E2CD1F /* Debtor.swift */,
+				17A7325529F2E01500E2CD1F /* Interest.swift */,
+			);
+			path = Modal;
+			sourceTree = "<group>";
+		};
+		17A7324E29F2D08800E2CD1F /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				17A7325A29F2E18600E2CD1F /* HomeScreenTableViewController.swift */,
+				17A7325C29F3210800E2CD1F /* AddEditCellTableViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		17A7325729F2E0E800E2CD1F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				17A7325829F2E16500E2CD1F /* HomeScreenTableViewCell.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +174,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				17A7323E29F2D04800E2CD1F /* ViewController.swift in Sources */,
+				17A7325929F2E16500E2CD1F /* HomeScreenTableViewCell.swift in Sources */,
 				17A7323A29F2D04800E2CD1F /* AppDelegate.swift in Sources */,
+				17A7325629F2E01500E2CD1F /* Interest.swift in Sources */,
+				17A7325D29F3210800E2CD1F /* AddEditCellTableViewController.swift in Sources */,
+				17A7325029F2D54400E2CD1F /* Debtor.swift in Sources */,
 				17A7323C29F2D04800E2CD1F /* SceneDelegate.swift in Sources */,
+				17A7325B29F2E18600E2CD1F /* HomeScreenTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

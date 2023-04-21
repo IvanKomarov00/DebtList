@@ -29,7 +29,7 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
         }
     }
     //Interest properties
-    let isInterestVisible: Bool = false
+    var isInterestVisible: Bool = false
     let interestSwitcherIndexPath = IndexPath(row: 0, section: 3)
     let interestActiveCellIndexPath = IndexPath(row: 1, section: 3)
     
@@ -73,14 +73,14 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
         updateTime()
     }
     
-    //Show DatePicker
+    //Show Cell
     override func tableView(_ tableView: UITableView,
        estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
         if indexPath == datePickerIndexPath{
             return 190
         }
-        if interestSwitcher.isOn{
+        else if indexPath == interestSwitcherIndexPath{
             return 45
         }
         else{
@@ -89,7 +89,7 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
         
     }
     
-    //Hide DatePicker
+    //Hide Cell
     override func tableView(_ tableView: UITableView,
        heightForRowAt indexPath: IndexPath) -> CGFloat {
         
@@ -97,7 +97,7 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
             isDatePickerVisible == false{
                 return 0
         }
-        if indexPath == interestActiveCellIndexPath && isInterestVisible == false{
+        else if indexPath == interestActiveCellIndexPath && isInterestVisible == false{
             return 0
         }
         else{
@@ -105,14 +105,14 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
         }
     }
     
-    //Logic Hide DatePicker
+    //Logic Hide/Show Cell
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        switch indexPath{
-            
-        case dateLableIndexPath:
+        
+        if indexPath == dateLableIndexPath{
             isDatePickerVisible.toggle()
-        default:
+        }
+        else{
             return
         }
         tableView.beginUpdates()
@@ -175,5 +175,13 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
         
+    }
+    
+    
+    @IBAction func interestSwitcherValueChanged(_ sender: UISwitch) {
+        isInterestVisible.toggle()
+
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
 }

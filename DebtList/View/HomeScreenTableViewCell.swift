@@ -28,7 +28,7 @@ class HomeScreenTableViewCell: UITableViewCell {
         debtLable.text = "\(debtor.total) $"
         nameLable.text = debtor.name
         durationLable.text = debtor.duration
-        photoImageView.image = debtor.image ?? UIImage(named: "Blue")
+        photoImageView.image = debtor.image
     }
 
 }

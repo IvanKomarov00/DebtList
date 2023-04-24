@@ -14,7 +14,7 @@ protocol InterestViewControllerDelegate: AnyObject {
 
 class InterestViewController: UIViewController {
 
-    //Delegate
+    //Delegate to AddEditVC
     weak var delegate: InterestViewControllerDelegate?
     
     //Interest
@@ -61,6 +61,7 @@ class InterestViewController: UIViewController {
         return (value * divisor).rounded() / divisor
     }
 
+    //Delegate to AddEditVC
     //Done Button Tapped
     @IBAction func DoneTapped(_ sender: UIBarButtonItem) {
         delegate?.interestViewController(self, didSave: interest)

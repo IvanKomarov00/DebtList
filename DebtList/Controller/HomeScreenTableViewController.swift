@@ -8,8 +8,10 @@
 import UIKit
 
 class HomeScreenTableViewController: UITableViewController, AddEditCellTableViewControllerDelegate{
+    
+    //Delegate from AddEditVC
     func addEditCellTableViewController(_ controller: AddEditCellTableViewController, didSave debtor: Debtor) {
-        print(debtor)
+        
         if let indexPath = tableView.indexPathForSelectedRow {
             debtors.remove(at: indexPath.row)
             debtors.insert(debtor, at: indexPath.row)
@@ -27,6 +29,8 @@ class HomeScreenTableViewController: UITableViewController, AddEditCellTableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        updateUI()
+        
         if let savedDebtors = Debtor.loadDebtors(){
             debtors = savedDebtors
         }else{
@@ -36,10 +40,48 @@ class HomeScreenTableViewController: UITableViewController, AddEditCellTableView
         navigationItem.leftBarButtonItem = editButtonItem
     }
 
-    @IBAction func unwindHomeScreen(segue: UIStoryboardSegue){
-        
+    //Update UI
+    func updateUI(){
+        guard debtors.count != 0 else{return}
+        for var newDebtor in debtors{
+            let currentDate = Date()
+            let calendar = Calendar.current
+            let components = calendar.dateComponents([.year, .month, .day], from: newDebtor.startDate, to: currentDate)
+            if let years = components.year, years > 0 {
+                newDebtor.duration = "> \(years) years"
+            } else if let months = components.month, months > 0 {
+                newDebtor.duration = "> \(months) months"
+            } else if let days = components.day {
+                newDebtor.duration = "\(days) days"
+            } else {
+                newDebtor.duration = "Less than a day"
+            }
+            
+            guard let interest = newDebtor.interest else{return}
+            
+            let dayDateComponents = calendar.dateComponents([.day], from: newDebtor.startDate, to: currentDate)
+            
+            var period: Float = 0
+            switch interest.state{
+            case .daily:
+                period = Float(dayDateComponents.day!)
+            case .mouthly:
+                period = ceil(Float(dayDateComponents.day!) / 30)
+            case .yearly:
+                period = ceil(Float(dayDateComponents.day!) / 365)
+            }
+            let compooundInterest = pow((1 + interest.percent/100), period)
+            let total = newDebtor.debt * compooundInterest
+            let totalRounded = round(total * 100) / 100
+            newDebtor.total = totalRounded
+        }
+        tableView.beginUpdates()
+        tableView.endUpdates()
     }
-    // MARK: - Table view data source
+    
+    //Unwind to self
+    @IBAction func unwindHomeScreen(segue: UIStoryboardSegue){
+    }
 
     //Sections
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -57,7 +99,7 @@ class HomeScreenTableViewController: UITableViewController, AddEditCellTableView
         let cell = tableView.dequeueReusableCell(withIdentifier: "DebtorShort", for: indexPath) as! HomeScreenTableViewCell
 
         let debtor = debtors[indexPath.row]
-        
+        cell.selectionStyle = .none
         cell.update(with: debtor)
 
         return cell
@@ -68,6 +110,7 @@ class HomeScreenTableViewController: UITableViewController, AddEditCellTableView
         return true
     }
     
+    //Editing
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
             debtors.remove(at: indexPath.row)
@@ -75,7 +118,8 @@ class HomeScreenTableViewController: UITableViewController, AddEditCellTableView
         }
     }
     
-    
+    //Delegate to AddEditVC
+    //Show AddEditVC
     @IBSegueAction func showAddEditTableViewController(_ coder: NSCoder, sender: Any?) -> AddEditCellTableViewController? {
         let controller = AddEditCellTableViewController(coder: coder)
         

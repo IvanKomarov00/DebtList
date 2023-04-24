@@ -7,16 +7,28 @@
 
 import UIKit
 
+protocol AddEditCellTableViewControllerDelegate: AnyObject {
+    func addEditCellTableViewController(_ controller: AddEditCellTableViewController, didSave debtor: Debtor)
+}
+
 class AddEditCellTableViewController: UITableViewController,UIImagePickerControllerDelegate & UINavigationControllerDelegate, InterestViewControllerDelegate {
+    
+    weak var delegate: AddEditCellTableViewControllerDelegate?
     
     func interestViewController(_ controller: InterestViewController, didSave interest: Interest) {
         self.interest = interest
         tableView.reloadData()
         
     }
+    
+    
     var interest: Interest?{
         didSet{
-            guard let interest = interest else{return}
+            guard let interest = interest else{
+                interestStateLable.text = "Choose"
+                interestValueLable.text = "0 %"
+                return
+            }
             switch interest.state{
             case .daily:
                 interestStateLable.text = "Daily"
@@ -40,7 +52,7 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
     @IBOutlet weak var interestSwitcher: UISwitch!
     @IBOutlet weak var imageView: UIImageView!
     
-    var debtor: [Debtor]?
+    var debtor: Debtor?
     
     //Date properties
     let dateLableIndexPath = IndexPath(row: 0, section: 4)
@@ -64,9 +76,36 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
         updateTime()
         }
 
+    func updateUI(){
+        
+    }
     
+    //Total Lable Update
     func updateTotalMoney(){
-        totalMoneyLable.text = ""
+        guard let debt = debtTextField.text,
+        let principal = Float(debt)
+        else{return}
+        
+        guard let interest = interest else{
+            totalMoneyLable.text = "\(principal) $"
+            return
+        }
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.day], from: datePicker.date, to: currentDate)
+        
+        var period: Float = 0
+        switch interest.state{
+        case .daily:
+            period = Float(components.day!)
+        case .mouthly:
+            period = ceil(Float(components.day!) / 30)
+        case .yearly:
+            period = ceil(Float(components.day!) / 365)
+        }
+        let compooundInterest = pow((1 + interest.percent/100), period)
+        let total = principal * compooundInterest
+        totalMoneyLable.text = "\( round(total * 100) / 100) $"
     }
     
     ///DATE
@@ -74,6 +113,7 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
         dateLable.text = datePicker.date.formatted(date: .abbreviated, time: .omitted)
     }
     
+    //Time
     func updateTime(){
         let currentDate = Date()
         let calendar = Calendar.current
@@ -93,6 +133,7 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         updateDate()
         updateTime()
+        updateTotalMoney()
     }
     
     //Show Cell
@@ -201,12 +242,17 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
     
     //Switch Tougle
     @IBAction func interestSwitcherValueChanged(_ sender: UISwitch) {
+        if !interestSwitcher.isOn{
+            interest = nil
+            updateTotalMoney()
+        }
         isInterestVisible.toggle()
         tableView.beginUpdates()
         tableView.endUpdates()
     }
     
     @IBAction func unwindToAddDebtorTableViewController(segue: UIStoryboardSegue){
+        updateTotalMoney()
         tableView.reloadData()
     }
     
@@ -215,5 +261,27 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
             interestViewController?.delegate = self
         
             return interestViewController
+    }
+    
+    
+    @IBAction func debtFieldChanged(_ sender: UITextField) {
+        updateTotalMoney()
+    }
+    
+    //Save Button Tapped
+    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+        guard let name = nameTexField.text,
+        let debt = debtTextField.text
+        else{return}
+        
+        let debtor = Debtor(image: imageView.image, name: name, debt: Float(debt)!, startDate: datePicker.date, interest: interest)
+        
+        delegate?.addEditCellTableViewController(self, didSave: debtor)
+        self.performSegue(withIdentifier: "saveUnwind", sender: self)
+    }
+    
+    //Cancel Button Tapped
+    @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
+        self.performSegue(withIdentifier: "cancelUnwind", sender: self)
     }
 }

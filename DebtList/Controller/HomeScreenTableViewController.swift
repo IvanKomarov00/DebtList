@@ -7,7 +7,19 @@
 
 import UIKit
 
-class HomeScreenTableViewController: UITableViewController {
+class HomeScreenTableViewController: UITableViewController, AddEditCellTableViewControllerDelegate{
+    func addEditCellTableViewController(_ controller: AddEditCellTableViewController, didSave debtor: Debtor) {
+        print(debtor)
+        if let indexPath = tableView.indexPathForSelectedRow {
+            debtors.remove(at: indexPath.row)
+            debtors.insert(debtor, at: indexPath.row)
+        } else {
+            debtors.append(debtor)
+        }
+        tableView.reloadData()
+        dismiss(animated: true, completion: nil)
+    }
+    
     
     var debtors: [Debtor] = []
     
@@ -62,6 +74,24 @@ class HomeScreenTableViewController: UITableViewController {
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
+    
+    
+    @IBSegueAction func showAddEditTableViewController(_ coder: NSCoder, sender: Any?) -> AddEditCellTableViewController? {
+        let controller = AddEditCellTableViewController(coder: coder)
+        controller?.delegate = self
+        
+        guard let cell = sender as? UITableViewCell,
+              let indexPath = tableView.indexPath(for: cell)
+          else {
+              return controller
+          }
+        
+        let debtor = debtors[indexPath.row]
+        controller?.debtor = debtor
+        
+        return controller
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

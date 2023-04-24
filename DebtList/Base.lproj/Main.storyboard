@@ -92,7 +92,7 @@
                         <barButtonItem key="leftBarButtonItem" systemItem="edit" id="YnI-Kp-j3z"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="nWW-Pq-5XL">
                             <connections>
-                                <segue destination="XRP-D8-ert" kind="show" id="rMr-cs-S8q"/>
+                                <segue destination="XRP-D8-ert" kind="show" destinationCreationSelector="addCellTableViewController:" id="rMr-cs-S8q"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -159,35 +159,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Debt" id="TQd-4b-CWx" userLabel="Debt">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="g07-Qc-SXm">
-                                        <rect key="frame" x="0.0" y="367.99999618530273" width="393" height="34.333332061767578"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g07-Qc-SXm" id="wEy-6W-XI1">
-                                            <rect key="frame" x="0.0" y="0.0" width="393" height="34.333332061767578"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amout Of Debt" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DIf-vS-IWF">
-                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="34.333333333333336"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
-                                                </textField>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="DIf-vS-IWF" secondAttribute="trailing" id="Bj5-55-VJD"/>
-                                                <constraint firstItem="DIf-vS-IWF" firstAttribute="top" secondItem="wEy-6W-XI1" secondAttribute="top" id="L1q-v8-mQy"/>
-                                                <constraint firstAttribute="bottom" secondItem="DIf-vS-IWF" secondAttribute="bottom" id="ho4-ky-6cp"/>
-                                                <constraint firstItem="DIf-vS-IWF" firstAttribute="leading" secondItem="wEy-6W-XI1" secondAttribute="leading" id="oE3-OR-K6K"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                             <tableViewSection headerTitle="Name" id="ZZC-FI-KZl" userLabel="Name">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="3wf-Fn-2tE">
-                                        <rect key="frame" x="0.0" y="458.33332824707031" width="393" height="34.333332061767578"/>
+                                        <rect key="frame" x="0.0" y="367.99999618530273" width="393" height="34.333332061767578"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3wf-Fn-2tE" id="9wm-7b-8Js">
                                             <rect key="frame" x="0.0" y="0.0" width="393" height="34.333332061767578"/>
@@ -204,6 +179,34 @@
                                                 <constraint firstAttribute="trailing" secondItem="BJS-oz-aqs" secondAttribute="trailing" id="VlA-bE-598"/>
                                                 <constraint firstItem="BJS-oz-aqs" firstAttribute="leading" secondItem="9wm-7b-8Js" secondAttribute="leading" id="cGS-si-HkO"/>
                                                 <constraint firstAttribute="bottom" secondItem="BJS-oz-aqs" secondAttribute="bottom" id="jmJ-Eq-4Ri"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Debt" id="TQd-4b-CWx" userLabel="Debt">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="g07-Qc-SXm">
+                                        <rect key="frame" x="0.0" y="458.33332824707031" width="393" height="34.333332061767578"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g07-Qc-SXm" id="wEy-6W-XI1">
+                                            <rect key="frame" x="0.0" y="0.0" width="393" height="34.333332061767578"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Amout Of Debt" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DIf-vS-IWF">
+                                                    <rect key="frame" x="0.0" y="0.0" width="393" height="34.333333333333336"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="debtFieldChanged:" destination="3Z6-CI-85q" eventType="editingDidEnd" id="k69-2g-ffk"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="DIf-vS-IWF" secondAttribute="trailing" id="Bj5-55-VJD"/>
+                                                <constraint firstItem="DIf-vS-IWF" firstAttribute="top" secondItem="wEy-6W-XI1" secondAttribute="top" id="L1q-v8-mQy"/>
+                                                <constraint firstAttribute="bottom" secondItem="DIf-vS-IWF" secondAttribute="bottom" id="ho4-ky-6cp"/>
+                                                <constraint firstItem="DIf-vS-IWF" firstAttribute="leading" secondItem="wEy-6W-XI1" secondAttribute="leading" id="oE3-OR-K6K"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -381,12 +384,12 @@
                     <navigationItem key="navigationItem" title="Root View Controller" id="ybB-5r-si3">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="TqK-3g-c73">
                             <connections>
-                                <segue destination="JaS-w9-5eQ" kind="unwind" identifier="cancelUnwind" unwindAction="unwindHomeScreenWithSegue:" id="Mg3-Lb-kO0"/>
+                                <action selector="cancelButtonTapped:" destination="3Z6-CI-85q" id="zI4-P7-DKc"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="lIq-7F-5ld">
                             <connections>
-                                <segue destination="JaS-w9-5eQ" kind="unwind" identifier="saveUnwind" unwindAction="unwindHomeScreenWithSegue:" id="WT7-fA-Vwb"/>
+                                <action selector="saveButtonTapped:" destination="3Z6-CI-85q" id="YXU-7s-gzr"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -401,6 +404,8 @@
                         <outlet property="nameTexField" destination="BJS-oz-aqs" id="C5R-No-0cJ"/>
                         <outlet property="timeLable" destination="mIa-wl-dll" id="Yly-Fw-1yA"/>
                         <outlet property="totalMoneyLable" destination="ixc-0Q-P1W" id="zxe-Er-4KT"/>
+                        <segue destination="JaS-w9-5eQ" kind="unwind" identifier="saveUnwind" unwindAction="unwindHomeScreenWithSegue:" id="zTN-VA-mxt"/>
+                        <segue destination="JaS-w9-5eQ" kind="unwind" identifier="cancelUnwind" unwindAction="unwindHomeScreenWithSegue:" id="yJA-DM-grA"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iqD-Py-0dC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -487,7 +492,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="3Z6-CI-85q" kind="relationship" relationship="rootViewController" id="Fdr-gG-td4"/>
+                        <segue destination="3Z6-CI-85q" kind="relationship" relationship="rootViewController" destinationCreationSelector="showAddEditTableViewController:sender:" id="Fdr-gG-td4"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="E0o-7Z-FlH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

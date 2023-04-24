@@ -7,8 +7,30 @@
 
 import UIKit
 
-class AddEditCellTableViewController: UITableViewController,UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class AddEditCellTableViewController: UITableViewController,UIImagePickerControllerDelegate & UINavigationControllerDelegate, InterestViewControllerDelegate {
+    
+    func interestViewController(_ controller: InterestViewController, didSave interest: Interest) {
+        self.interest = interest
+        tableView.reloadData()
+        
+    }
+    var interest: Interest?{
+        didSet{
+            guard let interest = interest else{return}
+            switch interest.state{
+            case .daily:
+                interestStateLable.text = "Daily"
+            case .mouthly:
+                interestStateLable.text = "Mounthly"
+            case .yearly:
+                interestStateLable.text = "Yearly"
+            }
+            interestValueLable.text = "\(interest.percent) %"
+        }
+    }
 
+    @IBOutlet weak var interestStateLable: UILabel!
+    @IBOutlet weak var interestValueLable: UILabel!
     @IBOutlet weak var totalMoneyLable: UILabel!
     @IBOutlet weak var timeLable: UILabel!
     @IBOutlet weak var datePicker: UIDatePicker!
@@ -177,11 +199,21 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
         
     }
     
-    
+    //Switch Tougle
     @IBAction func interestSwitcherValueChanged(_ sender: UISwitch) {
         isInterestVisible.toggle()
-
         tableView.beginUpdates()
         tableView.endUpdates()
+    }
+    
+    @IBAction func unwindToAddDebtorTableViewController(segue: UIStoryboardSegue){
+        tableView.reloadData()
+    }
+    
+    @IBSegueAction func interestControllerShow(_ coder: NSCoder) -> InterestViewController? {
+        let interestViewController = InterestViewController(coder: coder)
+            interestViewController?.delegate = self
+        
+            return interestViewController
     }
 }

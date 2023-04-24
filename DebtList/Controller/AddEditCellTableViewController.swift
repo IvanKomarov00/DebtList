@@ -90,6 +90,22 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
 
     func updateUI(){
 
+        if let debtor = debtor{
+            nameTexField.text = debtor.name
+            debtTextField.text = String(debtor.debt)
+            imageView.image = debtor.image
+            datePicker.date = debtor.startDate
+            timeLable.text = debtor.duration
+            if let interest = debtor.interest{
+                self.interest = interest
+                interestSwitcher.isOn = true
+                isInterestVisible.toggle()
+            }else{
+                self.interest = nil
+                
+            }
+            self.debtor = nil
+        }
         //Date & Time
         updateTime()
         updateDate()

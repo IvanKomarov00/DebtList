@@ -77,6 +77,7 @@
                                     <outlet property="durationLable" destination="1yj-Ow-aJq" id="RQx-4X-Wbh"/>
                                     <outlet property="nameLable" destination="3hf-iV-aHZ" id="ruy-gy-pbK"/>
                                     <outlet property="photoImageView" destination="fDy-Cs-dl7" id="sBf-qs-6XI"/>
+                                    <segue destination="XRP-D8-ert" kind="show" id="gGt-RX-1AR"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -329,14 +330,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BXa-GD-Da2">
-                                                    <rect key="frame" x="8" y="11.999999999999998" width="37.666666666666664" height="20.333333333333332"/>
+                                                    <rect key="frame" x="19.999999999999996" y="11.999999999999998" width="37.666666666666664" height="20.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mIa-wl-dll">
-                                                    <rect key="frame" x="341.33333333333331" y="11.999999999999998" width="43.666666666666664" height="20.333333333333332"/>
+                                                    <rect key="frame" x="329.33333333333331" y="11.999999999999998" width="43.666666666666664" height="20.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -357,14 +358,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="TOTAL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rJ0-zk-ETN">
-                                                    <rect key="frame" x="8" y="13" width="64" height="24"/>
+                                                    <rect key="frame" x="20" y="13" width="64" height="24"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ixc-0Q-P1W">
-                                                    <rect key="frame" x="329.66666666666669" y="13" width="55.333333333333336" height="24"/>
+                                                    <rect key="frame" x="317.66666666666669" y="13" width="55.333333333333336" height="24"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                     <nil key="textColor"/>
@@ -516,6 +517,9 @@
             <point key="canvasLocation" x="-394" y="218"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="gGt-RX-1AR"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="NewYork" width="1562" height="474"/>
         <systemColor name="systemBackgroundColor">

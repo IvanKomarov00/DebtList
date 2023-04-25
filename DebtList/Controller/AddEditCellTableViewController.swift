@@ -48,6 +48,7 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
 
     
     //Outlets
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var interestStateLable: UILabel!
     @IBOutlet weak var interestValueLable: UILabel!
     @IBOutlet weak var totalMoneyLable: UILabel!
@@ -78,18 +79,23 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //Keyboard Dismiss
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        
         //Set Date Restrictions
         let midnightToday = Calendar.current.startOfDay(for: Date())
         datePicker.maximumDate = midnightToday
         
         //Set Default Image
-        imageView.image = UIImage(named: "Blue")
+        imageView.image = UIImage(named: "crazyEmoji")
         
         updateUI()
         }
 
     func updateUI(){
-
+        updateSaveButton()
+        
         if let debtor = debtor{
             nameTexField.text = debtor.name
             debtTextField.text = String(debtor.debt)
@@ -117,6 +123,16 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
         }
     }
 
+    //Save Button Update
+    func updateSaveButton(){
+        guard nameTexField.text != "",
+              debtTextField.text != ""
+        else{
+            saveButton.isEnabled = false
+            return
+        }
+        saveButton.isEnabled = true
+    }
     
     //Total View Update
     func updateTotalMoney(principal: Float){
@@ -283,6 +299,9 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
             interest = nil
             updateUI()
         }
+        if interest == nil{
+            interest = nil
+        }
         isInterestVisible.toggle()
         tableView.beginUpdates()
         tableView.endUpdates()
@@ -307,6 +326,10 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
         updateUI()
     }
     
+    @IBAction func nameFieldChanged(_ sender: UITextField) {
+        updateUI()
+    }
+    
     //Delegate to HomeVC
     //Save Button Tapped
     @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
@@ -328,4 +351,15 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
     @IBAction func cancelButtonTapped(_ sender: UIBarButtonItem) {
         self.performSegue(withIdentifier: "cancelUnwind", sender: self)
     }
+    
+    //Dismiss Keyboard by Return Button
+    @IBAction func returnPressed(_ sender: UITextField) {
+        sender.resignFirstResponder()
+    }
+    
+    //Dismiss Keyboard by Gesture
+    @objc func dismissKeyboard() {
+            view.endEditing(true)
+        }
+    
 }

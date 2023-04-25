@@ -173,6 +173,10 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="393" height="34.333333333333336"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <action selector="nameFieldChanged:" destination="3Z6-CI-85q" eventType="editingDidEnd" id="6om-GP-YMA"/>
+                                                        <action selector="returnPressed:" destination="3Z6-CI-85q" eventType="primaryActionTriggered" id="81d-4y-dEL"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -199,7 +203,9 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                     <connections>
+                                                        <action selector="cancelKeyboard:" destination="3Z6-CI-85q" eventType="touchUpOutside" id="0pn-k1-fLd"/>
                                                         <action selector="debtFieldChanged:" destination="3Z6-CI-85q" eventType="editingDidEnd" id="k69-2g-ffk"/>
+                                                        <action selector="returnPressed:" destination="3Z6-CI-85q" eventType="editingDidEnd" id="hqN-X8-zMg"/>
                                                     </connections>
                                                 </textField>
                                             </subviews>
@@ -330,14 +336,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BXa-GD-Da2">
-                                                    <rect key="frame" x="19.999999999999996" y="11.999999999999998" width="37.666666666666664" height="20.333333333333332"/>
+                                                    <rect key="frame" x="8" y="11.999999999999998" width="37.666666666666664" height="20.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="mIa-wl-dll">
-                                                    <rect key="frame" x="329.33333333333331" y="11.999999999999998" width="43.666666666666664" height="20.333333333333332"/>
+                                                    <rect key="frame" x="341.33333333333331" y="11.999999999999998" width="43.666666666666664" height="20.333333333333332"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -358,14 +364,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="TOTAL" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rJ0-zk-ETN">
-                                                    <rect key="frame" x="20" y="13" width="64" height="24"/>
+                                                    <rect key="frame" x="8" y="13" width="64" height="24"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ixc-0Q-P1W">
-                                                    <rect key="frame" x="317.66666666666669" y="13" width="55.333333333333336" height="24"/>
+                                                    <rect key="frame" x="329.66666666666669" y="13" width="55.333333333333336" height="24"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                                     <nil key="textColor"/>
@@ -403,6 +409,7 @@
                         <outlet property="interestSwitcher" destination="GFM-KK-DLa" id="am0-oc-Mux"/>
                         <outlet property="interestValueLable" destination="WGm-FF-WbW" id="hJw-VM-8aV"/>
                         <outlet property="nameTexField" destination="BJS-oz-aqs" id="C5R-No-0cJ"/>
+                        <outlet property="saveButton" destination="lIq-7F-5ld" id="CXl-ba-p7G"/>
                         <outlet property="timeLable" destination="mIa-wl-dll" id="Yly-Fw-1yA"/>
                         <outlet property="totalMoneyLable" destination="ixc-0Q-P1W" id="zxe-Er-4KT"/>
                         <segue destination="JaS-w9-5eQ" kind="unwind" identifier="saveUnwind" unwindAction="unwindHomeScreenWithSegue:" id="zTN-VA-mxt"/>

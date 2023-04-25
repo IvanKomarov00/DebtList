@@ -12,8 +12,8 @@ struct Debtor {
     var total: Float
 
     static func loadDebtors() -> [Debtor]? {
-        var debtor1 = Debtor(image: UIImage(named: "NewYork")!, name: "Alex", debt: 10.0, startDate: Date(), endDate: nil, interest: Interest(state: .daily, percent: 0.1), duration: "1 day", total: 100)
-        var debtor2 = Debtor(image: UIImage(named: "NewYork")! ,name: "Ivan", debt: 100.0, startDate: Date(), endDate: nil, interest: Interest(state: .daily, percent: 0.1), duration: "1 day", total: 10)
+        let debtor1 = Debtor(image: UIImage(named: "NewYork")!, name: "Alex", debt: 10.0, startDate: Date(), endDate: nil, interest: Interest(state: .daily, percent: 0.1), duration: "1 day", total: 100)
+        let debtor2 = Debtor(image: UIImage(named: "NewYork")! ,name: "Ivan", debt: 100.0, startDate: Date(), endDate: nil, interest: Interest(state: .daily, percent: 0.1), duration: "1 day", total: 10)
         
         return [debtor1, debtor2]
     }

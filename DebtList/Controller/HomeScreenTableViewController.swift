@@ -20,6 +20,8 @@ class HomeScreenTableViewController: UITableViewController, AddEditCellTableView
         }
         tableView.reloadData()
         dismiss(animated: true, completion: nil)
+        
+        Debtor.saveDebtors(debtors)
     }
     
     
@@ -34,7 +36,7 @@ class HomeScreenTableViewController: UITableViewController, AddEditCellTableView
         if let savedDebtors = Debtor.loadDebtors(){
             debtors = savedDebtors
         }else{
-            debtors = Debtor.loadDebtors()!
+            debtors = [Debtor(emoji: "😇", name: "Alex", debt: 10.0, startDate: Date(), endDate: nil, interest: Interest(state: .daily, percent: 0.0), duration: "0 days", total: 10)]
         }
         
         navigationItem.leftBarButtonItem = editButtonItem
@@ -115,6 +117,7 @@ class HomeScreenTableViewController: UITableViewController, AddEditCellTableView
         if editingStyle == .delete{
             debtors.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
+            Debtor.saveDebtors(debtors)
         }
     }
     

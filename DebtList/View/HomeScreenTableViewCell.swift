@@ -12,7 +12,7 @@ class HomeScreenTableViewCell: UITableViewCell {
     @IBOutlet weak var debtLable: UILabel!
     @IBOutlet weak var nameLable: UILabel!
     @IBOutlet weak var durationLable: UILabel!
-    @IBOutlet weak var photoImageView: UIImageView!
+    @IBOutlet weak var emojiLable: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -28,7 +28,7 @@ class HomeScreenTableViewCell: UITableViewCell {
         debtLable.text = "\(debtor.total) $"
         nameLable.text = debtor.name
         durationLable.text = debtor.duration
-        photoImageView.image = debtor.image
+        emojiLable.text = debtor.emoji
     }
 
 }

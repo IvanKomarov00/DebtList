@@ -12,7 +12,7 @@ protocol AddEditCellTableViewControllerDelegate: AnyObject {
     func addEditCellTableViewController(_ controller: AddEditCellTableViewController, didSave debtor: Debtor)
 }
 
-class AddEditCellTableViewController: UITableViewController,UIImagePickerControllerDelegate & UINavigationControllerDelegate, InterestViewControllerDelegate {
+class AddEditCellTableViewController: UITableViewController, InterestViewControllerDelegate {
     
     //Delegate to HomeCV
     weak var delegate: AddEditCellTableViewControllerDelegate?
@@ -48,6 +48,7 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
 
     
     //Outlets
+    @IBOutlet weak var emojiLable: UILabel!
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var interestStateLable: UILabel!
     @IBOutlet weak var interestValueLable: UILabel!
@@ -57,8 +58,8 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
     @IBOutlet weak var dateLable: UILabel!
     @IBOutlet weak var debtTextField: UITextField!
     @IBOutlet weak var nameTexField: UITextField!
+    @IBOutlet weak var emojiSegmentedContoller: UISegmentedControl!
     @IBOutlet weak var interestSwitcher: UISwitch!
-    @IBOutlet weak var imageView: UIImageView!
     
     
     //Date properties
@@ -79,16 +80,11 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //Keyboard Dismiss
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGesture)
+        
         
         //Set Date Restrictions
         let midnightToday = Calendar.current.startOfDay(for: Date())
         datePicker.maximumDate = midnightToday
-        
-        //Set Default Image
-        imageView.image = UIImage(named: "crazyEmoji")
         
         updateUI()
         }
@@ -96,10 +92,16 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
     func updateUI(){
         updateSaveButton()
         
+        if let _ = debtor{
+            updateSegmentedController()
+        }else{
+            updateEmoji()
+        }
+        
         if let debtor = debtor{
             nameTexField.text = debtor.name
             debtTextField.text = String(debtor.debt)
-            imageView.image = debtor.image
+            emojiLable.text = debtor.emoji
             datePicker.date = debtor.startDate
             timeLable.text = debtor.duration
             if let interest = debtor.interest{
@@ -182,6 +184,24 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
         }
     }
     
+    func updateEmoji(){
+        switch emojiSegmentedContoller.selectedSegmentIndex{
+        case 0:
+            emojiLable.text = "😇"
+        case 1:
+            emojiLable.text = "😡"
+        default:
+            emojiLable.text = "😀"
+        }
+    }
+    func updateSegmentedController(){
+        if debtor!.emoji == "😇"{
+            emojiSegmentedContoller.selectedSegmentIndex = 0
+        }else if debtor!.emoji == "😡"{
+            emojiSegmentedContoller.selectedSegmentIndex = 1
+        }
+    }
+    
     //DatePicker Value Changed
     @IBAction func datePickerValueChanged(_ sender: UIDatePicker) {
         updateUI()
@@ -233,66 +253,6 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
         tableView.endUpdates()
     }
     
-    //Add Photo
-    @IBAction func addPhoto(_ sender: UIButton) {
-        let alert = UIAlertController(title: "Chose Image", message: nil, preferredStyle: .actionSheet)
-        
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.delegate = self
-        
-        ///Cancel Action
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        alert.addAction(cancelAction)
-        
-        
-        ///PhotoLibrary Action
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary){
-            
-            let photoLibraryAction = UIAlertAction(title: "Photo Library", style: .default, handler:{
-                action in imagePickerController.sourceType = .photoLibrary
-                self.present(imagePickerController, animated: true, completion: nil)
-            })
-            alert.addAction(photoLibraryAction)
-        }
-        
-        
-        ///Camera Action
-        if UIImagePickerController.isSourceTypeAvailable(.camera){
-            
-            let cameraAction = UIAlertAction(title: "Camera", style: .default, handler: {action in imagePickerController.sourceType = .camera
-                self.present(imagePickerController, animated: true, completion: nil)
-            })
-            
-            alert.addAction(cameraAction)
-        }
-        
-        
-        
-        alert.popoverPresentationController?.sourceView = sender
-        present(alert, animated: true)
-    
-    }
-    //ImagePicker
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        //Set selected image
-        if let imageSelected = info[.editedImage] as? UIImage{
-            imageView.image = imageSelected
-        }
-        //Remain image
-        if let imageSelected = info[.originalImage] as? UIImage{
-            imageView.image = imageSelected
-        }
-    
-        dismiss(animated: true)
-        
-    }
-    //ImagePicker Cancel
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        dismiss(animated: true, completion: nil)
-        
-    }
-    
     //Switch Tougle
     @IBAction func interestSwitcherValueChanged(_ sender: UISwitch) {
         if !interestSwitcher.isOn{
@@ -337,10 +297,10 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
               let debt = debtTextField.text,
               let time = timeLable.text,
               let total = totalMoney,
-              let image = imageView.image
+              let emoji = emojiLable.text
         else{return}
         
-        let debtor = Debtor(image: image, name: name, debt: Float(debt)!, startDate: datePicker.date, interest: interest, duration: time, total: total)
+        let debtor = Debtor(emoji: emoji, name: name, debt: Float(debt)!, startDate: datePicker.date, interest: interest, duration: time, total: total)
         
         delegate?.addEditCellTableViewController(self, didSave: debtor)
         self.performSegue(withIdentifier: "saveUnwind", sender: self)
@@ -358,8 +318,14 @@ class AddEditCellTableViewController: UITableViewController,UIImagePickerControl
     }
     
     //Dismiss Keyboard by Gesture
-    @objc func dismissKeyboard() {
-            view.endEditing(true)
-        }
+    @objc func dismissKeyboard(_ scrollView: UIScrollView) {
+        view.endEditing(true)
+    }
+    override func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        dismissKeyboard(scrollView)
+    }
     
+    @IBAction func emojiSegmentedContollerValueChanged(_ sender: UISegmentedControl) {
+        updateEmoji()
+    }
 }

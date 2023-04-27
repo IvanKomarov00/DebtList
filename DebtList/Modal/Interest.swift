@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Interest{
-    enum TimeState{
+struct Interest: Equatable, Codable{
+    enum TimeState:String, Codable{
         case daily
         case mouthly
         case yearly
@@ -16,5 +16,6 @@ struct Interest{
     
     var state: TimeState
     var percent: Float
+    
 }
 
